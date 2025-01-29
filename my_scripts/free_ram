@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Syncing cache files before clearing"
+sudo sync
+echo "Files synced, clearing"
+sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
+echo "Cache cleared"
