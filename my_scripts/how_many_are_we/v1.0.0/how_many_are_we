@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Set the directory to search. Defaults to current directory if not provided.
+directory="${1:-.}"
+
+# Check if the specified directory exists
+if [ ! -d "$directory" ]; then
+    echo "Directory $directory does not exist!"
+    exit 1
+fi
+
+TOTAL_LINES=0
+
+# Function to recursively count lines in files
+count_lines() {
+    # Iterate through all files and subdirectories in the current directory
+    for file in "$1"/*; do
+        # If it's a directory, call the function recursively
+        if [ -d "$file" ]; then
+            count_lines "$file"
+        # If it's a regular file, count lines
+        elif [ -f "$file" ]; then
+            line_count=$(wc -l <"$file")
+            echo "$file: $line_count lines"
+            TOTAL_LINES=$((TOTAL_LINES + line_count))
+        fi
+    done
+}
+
+# Call the function to start counting from the specified directory
+count_lines "$directory"
+echo "Total lines: $TOTAL_LINES"
