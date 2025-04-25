@@ -1,9 +1,0 @@
-#!/bin/bash
-SUDO=sudo
-PORT=8082
-CONTAINER_NAME=plantuml
-IMAGE_NAME=plantuml/plantuml-server:jetty
-$SUDO docker stop $CONTAINER_NAME
-$SUDO docker container rm $CONTAINER_NAME
-$SUDO docker run -d -p $PORT:8080 --name $CONTAINER_NAME $IMAGE_NAME
-echo "$CONTAINER_NAME is accessible on port $PORT"
